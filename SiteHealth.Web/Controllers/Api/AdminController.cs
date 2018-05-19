@@ -1,5 +1,6 @@
 ﻿using SiteHealth.Controllers.Base;
 using SiteHealth.Services.Interfaces;
+using SiteHealth.Services.ViewModels.Endpoint;
 using SiteHealth.Services.ViewModels.Site;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,31 @@ namespace SiteHealth.Web.Controllers.Api
 
 
         [HttpPost]
-        [Route("site/edit")]
-        public async Task<SiteViewModel> AddOrUpdateSite(SiteViewModel model)
+        [Route("site/save")]
+        public async Task<SiteViewModel> SaveSite(SiteViewModel model)
         {
-            return await _configurationService.AddOrUpdateSite(model);
+            return await _configurationService.SaveSite(model);
+        }
+
+        [HttpDelete]
+        [Route("site/remove")]
+        public async Task RemoveSite(long id)
+        {
+            await _configurationService.RemoveSite(id);
+        }
+
+        [HttpPost]
+        [Route("enpoint/save")]
+        public async Task<EndpointViewModel> SaveEndpoint(EndpointViewModel model)
+        {
+            return await _configurationService.SaveEndpoint(model);
+        }
+
+        [HttpDelete]
+        [Route("enpoint/remove")]
+        public async Task SaveEndpoint(long id)
+        {
+            await _configurationService.RemoveEndpoint(id);
         }
 
         [HttpPost]

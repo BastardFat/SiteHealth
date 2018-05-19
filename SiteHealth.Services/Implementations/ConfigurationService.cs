@@ -4,6 +4,7 @@ using SiteHealth.Database.Repos.Interfaces;
 using SiteHealth.Entity.Models;
 using SiteHealth.Services.Implementations.Base;
 using SiteHealth.Services.Interfaces;
+using SiteHealth.Services.ViewModels.Endpoint;
 using SiteHealth.Services.ViewModels.Site;
 using SiteHealth.Services.ViewModels.Utils;
 using SiteHealth.Utils;
@@ -21,6 +22,7 @@ namespace SiteHealth.Services.Implementations
     {
         private readonly ISiteRepository _siteRepository;
         private readonly IOptionRepository _optionRepository;
+        private readonly IEndpointRepository _endpointRepository;
         private readonly ISiteHealthUnitOfWork _uow;
 
         private readonly IMapper _simpleMapper;
@@ -28,16 +30,18 @@ namespace SiteHealth.Services.Implementations
         public ConfigurationService(
             ISiteRepository siteRepository,
             IOptionRepository optionRepository,
+            IEndpointRepository endpointRepository,
             ISiteHealthUnitOfWork uow)
         {
             _siteRepository = siteRepository;
             _optionRepository = optionRepository;
+            _endpointRepository = endpointRepository;
             _uow = uow;
 
             _simpleMapper = CreateSimpleMapper();
         }
 
-        public async Task<SiteViewModel> AddOrUpdateSite(SiteViewModel model)
+        public async Task<SiteViewModel> SaveSite(SiteViewModel model)
         {
             var entity = _simpleMapper.Map<Site>(model);
             entity = _siteRepository.AddOrUpdate(entity);
@@ -45,6 +49,29 @@ namespace SiteHealth.Services.Implementations
             var result = _simpleMapper.Map<SiteViewModel>(entity);
             return result;
         }
+
+        public async Task RemoveSite(long id)
+        {
+            _siteRepository.Delete(id);
+            await _uow.CommitAsync();
+        }
+
+        public async Task<EndpointViewModel> SaveEndpoint(EndpointViewModel model)
+        {
+            var entity = _simpleMapper.Map<Endpoint>(model);
+            entity = _endpointRepository.AddOrUpdate(entity);
+            await _uow.CommitAsync();
+            var result = _simpleMapper.Map<EndpointViewModel>(entity);
+            return result;
+        }
+
+        public async Task RemoveEndpoint(long id)
+        {
+            _endpointRepository.Delete(id);
+            await _uow.CommitAsync();
+        }
+
+        #region Options
 
         public async Task<T> GetOption<T>(string key, T defaultValue = default(T))
         {
@@ -77,15 +104,15 @@ namespace SiteHealth.Services.Implementations
         public async Task SetOption(string key, object value, string type)
         {
             if (String.IsNullOrWhiteSpace(type))
-                 type = typeof(object).FullName;
+                type = typeof(object).FullName;
 
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(value);
             var option = _optionRepository.Add(new Option
             {
-                 Key = key,
-                 CreatedAt = DateTime.UtcNow,
-                 Type = type,
-                 Value = json
+                Key = key,
+                CreatedAt = DateTime.UtcNow,
+                Type = type,
+                Value = json
             });
 
             await _uow.CommitAsync();
@@ -100,6 +127,7 @@ namespace SiteHealth.Services.Implementations
             var result = options.ToDictionary(x => x.Key, x => Newtonsoft.Json.JsonConvert.DeserializeObject(x.Value, Type.GetType(x.Type)));
 
             return result;
-        }
+        } 
+        #endregion
     }
 }
