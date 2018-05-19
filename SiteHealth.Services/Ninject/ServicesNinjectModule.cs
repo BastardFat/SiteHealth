@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using SiteHealth.Services.Configurations;
-using SiteHealth.Utils;
+﻿using SiteHealth.Utils;
 using Ninject.Modules;
 using Ninject.Web.Common;
 using System.Linq;
@@ -11,8 +9,6 @@ namespace SiteHealth.Services.Ninject
     {
         public override void Load()
         {
-            Bind<IMapper>().ToMethod(ctx => AutoMapperConfig.CreateMapperConfiguration().CreateMapper()).InSingletonScope();
-
             var bindings = NinjectDependencyAttribute.GetBindingsForAssembly(GetType().Assembly)
                 .Select(x =>
                 {

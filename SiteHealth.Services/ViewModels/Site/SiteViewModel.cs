@@ -1,6 +1,6 @@
 ﻿using SiteHealth.Services.ViewModels.Base;
 
-namespace SiteHealth.Services.ViewModels
+namespace SiteHealth.Services.ViewModels.Site
 {
     public class SiteViewModel: ViewModelBase
     {

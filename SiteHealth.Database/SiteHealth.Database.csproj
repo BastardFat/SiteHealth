@@ -68,8 +68,15 @@
     <Compile Include="EntityConfigurations\HealthReportEntityConfiguration.cs" />
     <Compile Include="EntityConfigurations\EndpointEntityConfiguration.cs" />
     <Compile Include="EntityConfigurations\SiteEntityConfiguration.cs" />
+    <Compile Include="EntityConfigurations\OptionEntityConfiguration.cs" />
     <Compile Include="Ninject\DatabaseNinjectModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repos\HealthReportRepository.cs" />
+    <Compile Include="Repos\Interfaces\IHealthReportRepository.cs" />
+    <Compile Include="Repos\Interfaces\IEndpointRepository.cs" />
+    <Compile Include="Repos\EndpointRepository.cs" />
+    <Compile Include="Repos\Interfaces\IOptionRepository.cs" />
+    <Compile Include="Repos\OptionRepository.cs" />
     <Compile Include="Repos\SiteRepository.cs" />
     <Compile Include="Repos\Interfaces\ISiteRepository.cs" />
   </ItemGroup>

@@ -164,6 +164,7 @@
     <Compile Include="App_Start\Ninject\NinjectDependencyScope.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Api\DataController.cs" />
     <Compile Include="Controllers\Api\AdminController.cs" />
     <Compile Include="Controllers\Base\BaseApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

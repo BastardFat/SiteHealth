@@ -39,6 +39,10 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>
     </Reference>
@@ -57,13 +61,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\AutoMapperConfig.cs" />
+    <Compile Include="Implementations\Base\BaseService.cs" />
+    <Compile Include="Implementations\EndpointService.cs" />
     <Compile Include="Implementations\ConfigurationService.cs" />
+    <Compile Include="Interfaces\IEndpointService.cs" />
     <Compile Include="Interfaces\IConfigurationService.cs" />
     <Compile Include="Ninject\ServicesNinjectModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
-    <Compile Include="ViewModels\SiteViewModel.cs" />
+    <Compile Include="ViewModels\Endpoint\EndpointViewModelWithParent.cs" />
+    <Compile Include="ViewModels\Endpoint\EndpointViewModelWithChilds.cs" />
+    <Compile Include="ViewModels\HealthReport\HealthReportViewModelWithParent.cs" />
+    <Compile Include="ViewModels\HealthReport\HealthReportViewModel.cs" />
+    <Compile Include="ViewModels\Endpoint\EndpointViewModel.cs" />
+    <Compile Include="ViewModels\Site\SiteViewModelWithChilds.cs" />
+    <Compile Include="ViewModels\Site\SiteViewModel.cs" />
+    <Compile Include="ViewModels\Utils\PagedDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -43,6 +43,7 @@
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Models\Endpoint.cs" />
     <Compile Include="Models\HealthReport.cs" />
+    <Compile Include="Models\Option.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
