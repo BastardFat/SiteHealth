@@ -11,6 +11,8 @@ namespace SiteHealth.Entity.Models
     {
         public virtual long Id { get; set; }
         public virtual string Name { get; set; }
+        public virtual DateTime? CreatedAt { get; set; }
+        public virtual DateTime? UpdatedAt { get; set; }
 
         public virtual ICollection<Endpoint> Endpoints { get; set; }
     }

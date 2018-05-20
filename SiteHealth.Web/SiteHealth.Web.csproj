@@ -183,6 +183,19 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\app.js" />
+    <Content Include="Spa\Components\Loadable.jsx" />
+    <Content Include="Spa\Components\UiView.jsx" />
+    <Content Include="Spa\Pages\EditSite.jsx" />
+    <Content Include="Spa\Pages\Home.jsx" />
+    <Content Include="Spa\Pages\App.jsx" />
+    <Content Include="Spa\State\Actions.js" />
+    <Content Include="Spa\State\Reducers\Sites.js" />
+    <Content Include="Spa\State\Fetchers\Sites.js" />
+    <Content Include="Spa\State\Store.js" />
+    <Content Include="Spa\Utils\Api.js" />
+    <Content Include="Spa\Utils\Helpers.js" />
+    <Content Include="Spa\Utils\Routes.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -196,11 +209,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="package.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

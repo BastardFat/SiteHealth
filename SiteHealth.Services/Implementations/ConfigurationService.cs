@@ -26,6 +26,7 @@ namespace SiteHealth.Services.Implementations
         private readonly ISiteHealthUnitOfWork _uow;
 
         private readonly IMapper _simpleMapper;
+        private readonly IMapper _deepMapper;
 
         public ConfigurationService(
             ISiteRepository siteRepository,
@@ -39,14 +40,39 @@ namespace SiteHealth.Services.Implementations
             _uow = uow;
 
             _simpleMapper = CreateSimpleMapper();
+            _deepMapper = CreateMapperWithChilds();
         }
 
-        public async Task<SiteViewModel> SaveSite(SiteViewModel model)
+        public async Task<SiteViewModelWithChilds> SaveSite(SiteViewModelWithChilds model)
         {
-            var entity = _simpleMapper.Map<Site>(model);
-            entity = _siteRepository.AddOrUpdate(entity);
+            Site entity;
+            if (model.Id == 0)
+            {
+                entity = _deepMapper.Map<Site>(model);
+                entity.CreatedAt = DateTime.UtcNow;
+                entity = _siteRepository.Add(entity);
+            }
+            else
+            {
+                entity = _simpleMapper.Map<Site>(model);
+                entity.UpdatedAt = DateTime.UtcNow;
+                entity = _siteRepository.Update(entity);
+                var modelEndpoints = model.Endpoints.Select(x => x.Id).ToArray();
+
+                var removed =await _endpointRepository.Query()
+                    .Where(x => x.SiteId == model.Id && !modelEndpoints.Any(me => me == x.Id)).ToListAsync();
+
+                _endpointRepository.Delete(removed);
+
+                model.Endpoints.ForEach(x => x.SiteId = model.Id);
+                var endpoints = _simpleMapper.Map<Endpoint[]>(model.Endpoints);
+                endpoints = _endpointRepository.AddOrUpdate(endpoints).ToArray();
+            }
+
+            
+            
             await _uow.CommitAsync();
-            var result = _simpleMapper.Map<SiteViewModel>(entity);
+            var result = _deepMapper.Map<SiteViewModelWithChilds>(entity);
             return result;
         }
 
@@ -56,19 +82,12 @@ namespace SiteHealth.Services.Implementations
             await _uow.CommitAsync();
         }
 
-        public async Task<EndpointViewModel> SaveEndpoint(EndpointViewModel model)
-        {
-            var entity = _simpleMapper.Map<Endpoint>(model);
-            entity = _endpointRepository.AddOrUpdate(entity);
-            await _uow.CommitAsync();
-            var result = _simpleMapper.Map<EndpointViewModel>(entity);
-            return result;
-        }
 
-        public async Task RemoveEndpoint(long id)
+        public async Task<SiteViewModelWithChilds> GetSite(long id)
         {
-            _endpointRepository.Delete(id);
-            await _uow.CommitAsync();
+            var entity = await _siteRepository.GetByIdAsync(id);
+            var result = _deepMapper.Map<SiteViewModelWithChilds>(entity);
+            return result;
         }
 
         #region Options
@@ -127,7 +146,8 @@ namespace SiteHealth.Services.Implementations
             var result = options.ToDictionary(x => x.Key, x => Newtonsoft.Json.JsonConvert.DeserializeObject(x.Value, Type.GetType(x.Type)));
 
             return result;
-        } 
+        }
+
         #endregion
     }
 }

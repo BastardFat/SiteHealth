@@ -8,11 +8,9 @@ namespace SiteHealth.Services.Interfaces
 {
     public interface IConfigurationService
     {
-        Task<SiteViewModel> SaveSite(SiteViewModel model);
+        Task<SiteViewModelWithChilds> SaveSite(SiteViewModelWithChilds model);
         Task RemoveSite(long id);
-
-        Task<EndpointViewModel> SaveEndpoint(EndpointViewModel model);
-        Task RemoveEndpoint(long id);
+        Task<SiteViewModelWithChilds> GetSite(long id);
 
         Task<T> GetOption<T>(string key, T defaultValue = default(T));
         Task<object> GetOption(string key);

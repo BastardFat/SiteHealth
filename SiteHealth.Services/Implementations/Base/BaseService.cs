@@ -52,6 +52,9 @@ namespace SiteHealth.Services.Implementations.Base
                 cfg.CreateMap<Site, SiteViewModelWithChilds>()
                     .ReverseMap();
 
+                cfg.CreateMap<Endpoint, EndpointViewModel>()
+                    .ReverseMap();
+
                 cfg.CreateMap<Endpoint, EndpointViewModelWithChilds>()
                     .ReverseMap();
 

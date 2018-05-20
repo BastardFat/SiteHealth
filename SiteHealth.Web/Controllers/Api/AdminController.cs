@@ -24,7 +24,7 @@ namespace SiteHealth.Web.Controllers.Api
 
         [HttpPost]
         [Route("site/save")]
-        public async Task<SiteViewModel> SaveSite(SiteViewModel model)
+        public async Task<SiteViewModelWithChilds> SaveSite(SiteViewModelWithChilds model)
         {
             return await _configurationService.SaveSite(model);
         }
@@ -36,18 +36,11 @@ namespace SiteHealth.Web.Controllers.Api
             await _configurationService.RemoveSite(id);
         }
 
-        [HttpPost]
-        [Route("enpoint/save")]
-        public async Task<EndpointViewModel> SaveEndpoint(EndpointViewModel model)
+        [HttpGet]
+        [Route("site/edit")]
+        public async Task<SiteViewModelWithChilds> EditSite(long id)
         {
-            return await _configurationService.SaveEndpoint(model);
-        }
-
-        [HttpDelete]
-        [Route("enpoint/remove")]
-        public async Task SaveEndpoint(long id)
-        {
-            await _configurationService.RemoveEndpoint(id);
+            return await _configurationService.GetSite(id);
         }
 
         [HttpPost]

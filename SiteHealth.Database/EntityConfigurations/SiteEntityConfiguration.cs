@@ -11,6 +11,8 @@ namespace BotMagic.Database.EntityConfigurations
             HasKey(x => x.Id);
 
             Property(x => x.Name).IsRequired();
+            Property(x => x.CreatedAt).IsOptional();
+            Property(x => x.UpdatedAt).IsOptional();
         }
     }
 }
