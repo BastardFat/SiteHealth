@@ -1,6 +1,6 @@
 ﻿import * as Toastr from 'toastr';
 import { interpolateWith } from './Helpers';
-
+import { Store } from '../State/Store';
 function status(response) {
     if (response.status >= 200 && response.status < 300) {
         return response;
@@ -30,6 +30,9 @@ function getHeaders() {
     let requestHeaders = new Headers();
     requestHeaders.append('Accept', 'application/json');
     requestHeaders.append('Content-Type', 'application/json');
+    if (Store.getState().Token) {
+        requestHeaders.append("Authorization", "Bearer " + Store.getState().Token);
+    }
     return requestHeaders;
 }
 
@@ -75,6 +78,12 @@ const Api = {
         },
         GetOptions() {
             return get('api/admin/options/get');
+        },
+        GetToken(password) {
+            return get(encode`api/admin/password/authorize?password=${password}`);
+        },
+        ChangePassword(password, newPassword) {
+            return get(encode`api/admin/password/change?password=${password}&newPassword=${newPassword}`);
         }
     },
     Data: {

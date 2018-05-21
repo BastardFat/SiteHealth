@@ -68,7 +68,7 @@ class EditSite extends Component {
         this.setState({ saving: true });
         Api.Admin.SaveSite(this.state.site)
             .then(() => this.props.history.push("/"))
-            .finally(() => this.setState({ saving: true }));
+            .finally(() => this.setState({ saving: false }));
     }
 
     render() {
@@ -107,21 +107,21 @@ class EditSite extends Component {
                                             <Form.Input fluid placeholder='Endpoint URL' required {  ...bind('site', 'Endpoints', index, 'Url') } />
                                         </Grid.Column>
                                         <Grid.Column width={2}>
-                                            <Button circular size='small' type='button' icon='close' onClick={() => this.removeEndpoint(index)} />
+                                            <Button basic circular size='small' type='button' icon='close' onClick={() => this.removeEndpoint(index)} />
                                         </Grid.Column>
                                     </Grid.Row>
                                 ))}
                                 <Grid.Row>
                                     <Grid.Column width={16}>
-                                        <Button color='green' type='button' onClick={() => this.addEndpoint()} disabled={this.state.saving} loading={this.state.saving}>
+                                        <Button basic color='green' type='button' onClick={() => this.addEndpoint()} disabled={this.state.saving} loading={this.state.saving}>
                                             Add endpoint
                                         </Button>
-                                        <Button color='blue' type='submit' disabled={this.state.saving} loading={this.state.saving}>
+                                        <Button basic color='blue' type='submit' disabled={this.state.saving} loading={this.state.saving}>
                                             Save
-                    </Button>
-                                        <Button type='button' disabled={this.state.saving} loading={this.state.saving} onClick={() => this.props.history.push("/")}>
+                                        </Button>
+                                        <Button basic type='button' disabled={this.state.saving} loading={this.state.saving} onClick={() => this.props.history.push("/")}>
                                             Cancel
-                    </Button>
+                                        </Button>
                                     </Grid.Column>
                                 </Grid.Row>
                             </Grid>

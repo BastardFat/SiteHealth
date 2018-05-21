@@ -10,6 +10,7 @@ import {
     Icon,
     Label,
     Table,
+    Button,
 } from 'semantic-ui-react';
 import { keys } from 'lodash';
 import Api from '../Utils/Api';
@@ -61,6 +62,9 @@ class ViewSite extends Component {
 
         return (
             <React.Fragment>
+                <Button basic floated='right' type='button' onClick={() => this.props.history.push("/")}>
+                    Back
+                </Button>
                 <Header as='h1'>{this.state.site.Name} <Header.Subheader>{this.state.site.EndpointsCount} endpoints</Header.Subheader></Header>
                 <Divider />
                 <Accordion fluid styled>
@@ -77,7 +81,7 @@ class ViewSite extends Component {
                                         No uptime
                                     </Label>
                                 )}
-                                <Header className='no-top-margin' as='h2'>
+                                <Header className='no-top-margin' as='h3'>
                                     {endpoint.Name}
                                     <Header.Subheader>
                                         {endpoint.Url}

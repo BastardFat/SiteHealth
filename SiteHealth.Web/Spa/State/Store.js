@@ -2,11 +2,11 @@
 import { ActionHandlers } from './Actions';
 
 const initialState = {
-
+    IsAdmin: false,
+    Token: null
 };
 
 function reducer(state = initialState, action) {
-    console.log('action ', action);
     let handler = ActionHandlers[action.type];
     if (!handler) {
         return state;

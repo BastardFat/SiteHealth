@@ -2,15 +2,16 @@
 using Ninject.Modules;
 using Ninject.Web.Common;
 using System.Linq;
+using BotMagic.Utils;
 
 namespace SiteHealth.Services.Ninject
 {
     public class ServicesNinjectModule : NinjectModule
     {
-        private bool _singletonMode;
-        public ServicesNinjectModule(bool singletonMode = false)
+        private ServicesNinjectModuleOptions _options;
+        public ServicesNinjectModule(ServicesNinjectModuleOptions options)
         {
-            _singletonMode = singletonMode;
+            _options = options;
         }
 
         public override void Load()
@@ -20,7 +21,7 @@ namespace SiteHealth.Services.Ninject
                 {
                     var binding = Bind(x.Source).To(x.Destenation);
 
-                    if (_singletonMode)
+                    if (_options.SingletonMode)
                         return binding.InSingletonScope();
 
                     switch (x.Scope)
@@ -37,6 +38,14 @@ namespace SiteHealth.Services.Ninject
                     }
                 })
                 .ToArray();
+            Bind(typeof(IHmacSerializer<>)).To(typeof(HmacSerializer<>)).WithConstructorArgument("key", _options.HmacSerializerKey);
+            Bind<ISha256Hasher>().To<Sha256Hasher>().InRequestScope();
         }
+    }
+
+    public class ServicesNinjectModuleOptions
+    {
+        public string HmacSerializerKey { get; set; }
+        public bool SingletonMode { get; set; }
     }
 }

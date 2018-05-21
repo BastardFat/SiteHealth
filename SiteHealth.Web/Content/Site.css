@@ -1,3 +1,7 @@
 ﻿.ui.header.no-top-margin {
     margin-top: .2em;
 }
+
+body {
+    padding: 10px !important;
+}

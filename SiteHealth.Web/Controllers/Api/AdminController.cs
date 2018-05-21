@@ -1,5 +1,7 @@
-﻿using Hangfire;
+﻿using BotMagic.Utils;
+using Hangfire;
 using SiteHealth.Controllers.Base;
+using SiteHealth.Filters;
 using SiteHealth.Services.Interfaces;
 using SiteHealth.Services.ViewModels.Endpoint;
 using SiteHealth.Services.ViewModels.Site;
@@ -19,12 +21,18 @@ namespace SiteHealth.Web.Controllers.Api
     public class AdminController : BaseApiController
     {
         private readonly IConfigurationService _configurationService;
-        public AdminController(IConfigurationService configurationService)
+        private readonly IHmacSerializer<string> _serializer;
+        private readonly ISha256Hasher _hasher;
+        public AdminController(IConfigurationService configurationService,
+            IHmacSerializer<string> serializer,
+            ISha256Hasher hasher)
         {
             _configurationService = configurationService;
+            _serializer = serializer;
+            _hasher = hasher;
         }
 
-
+        [OnlyAuthorize]
         [HttpPost]
         [Route("site/save")]
         public async Task<SiteViewModelWithChilds> SaveSite(SiteViewModelWithChilds model)
@@ -34,6 +42,7 @@ namespace SiteHealth.Web.Controllers.Api
             return res;
         }
 
+        [OnlyAuthorize]
         [HttpDelete]
         [Route("site/remove")]
         public async Task RemoveSite(long id)
@@ -42,6 +51,7 @@ namespace SiteHealth.Web.Controllers.Api
             BackgroundJobManager.RemoveWorker(id);
         }
 
+        [OnlyAuthorize]
         [HttpGet]
         [Route("site/edit")]
         public async Task<SiteViewModelWithChilds> EditSite(long id)
@@ -49,6 +59,7 @@ namespace SiteHealth.Web.Controllers.Api
             return await _configurationService.GetSite(id);
         }
 
+        [OnlyAuthorize]
         [HttpPost]
         [Route("options/set")]
         public async Task SetOption([FromUri] string key, [FromUri] string type, [FromBody] object model)
@@ -56,6 +67,7 @@ namespace SiteHealth.Web.Controllers.Api
             await _configurationService.SetOption(key, model, type);
         }
 
+        [OnlyAuthorize]
         [HttpGet]
         [Route("options/get")]
         public async Task<Dictionary<string, object>> GetOptions()
@@ -63,11 +75,34 @@ namespace SiteHealth.Web.Controllers.Api
             return await _configurationService.GetOptions();
         }
 
+        [OnlyAuthorize]
         [HttpGet]
         [Route("options/get")]
         public async Task<object> GetOption(string key)
         {
             return await _configurationService.GetOption(key);
         }
+
+        [HttpGet]
+        [Route("password/authorize")]
+        public async Task<string> GetToken(string password)
+        {
+            string truePassword = await _configurationService.GetOption<string>("password");
+            if (password != truePassword)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Unauthorized) { Content = new StringContent("Invalid password") });
+            return _serializer.Serialize(password);
+        }
+
+        [HttpGet]
+        [Route("password/change")]
+        public async Task<string> ChangePassword(string password, string newPassword)
+        {
+            string truePassword = await _configurationService.GetOption<string>("password");
+            if (password != truePassword)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Unauthorized) { Content = new StringContent("Invalid password") });
+            await _configurationService.SetOption("password", newPassword, typeof(string).FullName);
+            return _serializer.Serialize(newPassword);
+        }
+
     }
 }

@@ -22,8 +22,11 @@ namespace SiteHealth
             var kernel = new StandardKernel(
 
                 new DatabaseNinjectModule(singletonMode),
-                new ServicesNinjectModule(singletonMode)
-
+                new ServicesNinjectModule(new ServicesNinjectModuleOptions
+                {
+                    HmacSerializerKey = System.Configuration.ConfigurationManager.AppSettings["HmacSerializerKey"],
+                    SingletonMode = singletonMode,
+                })
             );
 
 

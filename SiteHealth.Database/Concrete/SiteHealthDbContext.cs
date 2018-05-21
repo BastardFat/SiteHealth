@@ -1,4 +1,7 @@
-﻿using System.Data.Entity;
+﻿using BotMagic.Utils;
+using SiteHealth.Entity.Models;
+using System;
+using System.Data.Entity;
 using System.Reflection;
 
 namespace SiteHealth.Database.Concrete
@@ -22,6 +25,14 @@ namespace SiteHealth.Database.Concrete
         protected override void Seed(SiteHealthDbContext context)
         {
             base.Seed(context);
+
+            context.Set<Option>().Add(new Option
+            {
+                CreatedAt = DateTime.UtcNow,
+                Key = "password",
+                Type = typeof(string).FullName,
+                Value = "admin"
+            });
         }
     }
 }

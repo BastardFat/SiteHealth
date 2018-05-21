@@ -186,6 +186,7 @@
     <Compile Include="Controllers\Api\AdminController.cs" />
     <Compile Include="Controllers\Base\BaseApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Filters\OnlyAuthorizeFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -205,11 +206,13 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Spa\Components\Loadable.jsx" />
     <Content Include="Spa\Components\UiView.jsx" />
+    <Content Include="Spa\Pages\Admin.jsx" />
     <Content Include="Spa\Pages\ViewSite.jsx" />
     <Content Include="Spa\Pages\EditSite.jsx" />
     <Content Include="Spa\Pages\Home.jsx" />
     <Content Include="Spa\Pages\App.jsx" />
     <Content Include="Spa\State\Actions.js" />
+    <Content Include="Spa\State\Reducers\Admin.js" />
     <Content Include="Spa\State\Reducers\Sites.js" />
     <Content Include="Spa\State\Fetchers\Sites.js" />
     <Content Include="Spa\State\Store.js" />
@@ -250,6 +253,10 @@
     <ProjectReference Include="..\SiteHealth.Services\SiteHealth.Services.csproj">
       <Project>{7907D1A6-CFA6-400F-A15C-6E29DD0DDE53}</Project>
       <Name>SiteHealth.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SiteHealth.Utils\SiteHealth.Utils.csproj">
+      <Project>{F282F361-3563-47EA-8562-0E018F18C4A9}</Project>
+      <Name>SiteHealth.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -2,6 +2,7 @@
 import Home from '../Pages/Home.jsx';
 import EditSite from '../Pages/EditSite.jsx';
 import ViewSite from '../Pages/ViewSite.jsx';
+import Admin from '../Pages/Admin.jsx';
 
 const Routes = [
     {
@@ -27,6 +28,12 @@ const Routes = [
         url: '/site/view/:siteid',
         exact: true,
         component: ViewSite
+    },
+    {
+        name: 'Admin',
+        url: '/admin',
+        exact: true,
+        component: Admin
     }
 ];
 

@@ -1,28 +1,26 @@
 ﻿import React, { Component } from 'react';
 
-import { connect } from 'react-redux';
 import { Container, Divider, Header } from 'semantic-ui-react';
-
-import SitesFetchers from '../State/Fetchers/Sites';
+import { withRouter } from 'react-router-dom';
 import UiView from '../Components/UiView.jsx';
+import { connect } from 'react-redux';
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <React.Fragment>
-                <Header>Web Health Monitor</Header>
-                <Divider />
-                <Container>
-                    <UiView />
-                </Container>
-            </React.Fragment>
-        );
-    }
+function App(props) {
+    return (
+        <React.Fragment>
+            <Header onClick={() => props.history.push("/admin")}>Web Health Monitor {props.IsAdmin && <Header.Subheader>(Admin)</Header.Subheader>}</Header>
+            <Divider />
+            <Container>
+                <UiView />
+            </Container>
+        </React.Fragment>
+    );
 }
 
 
-export default App;
+export default withRouter(connect(
+    state => ({
+        IsAdmin: state.IsAdmin
+    }),
+    dispatch => ({ })
+)(App));
