@@ -85,7 +85,7 @@ class ViewSite extends Component {
                                 </Header>
                             </Accordion.Title>
                             <Accordion.Content active={this.state.activeIndex === i}>
-                                <ResponsiveContainer width='95%' height={500} >
+                                <ResponsiveContainer width='95%' height={300} >
                                     <ScatterChart>
                                         <XAxis
                                             dataKey='Time'
@@ -100,7 +100,7 @@ class ViewSite extends Component {
                                             data={endpoint.Chart.map(x => ({ ...x, Time: (new Date(x.Time)).getTime() }))}
                                             line={{ stroke: 'green' }}
                                             shape={() => ""}
-                                            lineJointType='monotoneX'
+                                            lineJointType='linear'
                                             lineType='joint'
                                             name='Response time'
                                         />
@@ -119,7 +119,7 @@ class ViewSite extends Component {
                                         {keys(endpoint.Stat.StatusCodes).map(x => (
                                             <Table.Row key={x}>
                                                 <Table.Cell>{x}</Table.Cell>
-                                                <Table.Cell>{endpoint.Stat.StatusCodes[x] / endpoint.Stat.TotalRequests}%</Table.Cell>
+                                                <Table.Cell>{endpoint.Stat.StatusCodes[x] / endpoint.Stat.TotalRequests *100}%</Table.Cell>
                                             </Table.Row>
                                         ))}
                                     </Table.Body>
@@ -135,7 +135,7 @@ class ViewSite extends Component {
                                         {keys(endpoint.Stat.Errors).map(x => (
                                             <Table.Row key={x}>
                                                 <Table.Cell>{x}</Table.Cell>
-                                                <Table.Cell>{endpoint.Stat.Errors[x] / endpoint.Stat.TotalRequests}%</Table.Cell>
+                                                <Table.Cell>{endpoint.Stat.Errors[x] / endpoint.Stat.TotalRequests * 100}%</Table.Cell>
                                             </Table.Row>
                                         ))}
                                     </Table.Body>

@@ -16,7 +16,7 @@ namespace SiteHealth.BackgroundWorker
 
             using (var server = new BackgroundJobServer())
             {
-                Console.WriteLine("Hangfire Server started. Press ENTER key to exit...");
+                Console.WriteLine($"Hangfire Server started at {DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}. Press ENTER key to exit...");
                 Console.ReadLine();
             }
         }
