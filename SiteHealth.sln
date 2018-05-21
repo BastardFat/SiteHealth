@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteHealth.Entity", "SiteHe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteHealth.Services", "SiteHealth.Services\SiteHealth.Services.csproj", "{7907D1A6-CFA6-400F-A15C-6E29DD0DDE53}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteHealth.BackgroundWorker", "SiteHealth.BackgroundWorker\SiteHealth.BackgroundWorker.csproj", "{4C844D23-BEAE-40BA-8E06-B74DBCE697A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7907D1A6-CFA6-400F-A15C-6E29DD0DDE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7907D1A6-CFA6-400F-A15C-6E29DD0DDE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7907D1A6-CFA6-400F-A15C-6E29DD0DDE53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C844D23-BEAE-40BA-8E06-B74DBCE697A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C844D23-BEAE-40BA-8E06-B74DBCE697A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C844D23-BEAE-40BA-8E06-B74DBCE697A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C844D23-BEAE-40BA-8E06-B74DBCE697A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

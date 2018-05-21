@@ -29,17 +29,17 @@ namespace SiteHealth.Services.Implementations.Base
             }).CreateMapper();
         }
 
-        protected IMapper CreateMapperWithParents()
+        protected IMapper CreateMapperWithDetails()
         {
             return new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Site, SiteViewModel>()
+
+                cfg.CreateMap<Endpoint, EndpointViewModelWithDetails>()
+                        .ForMember(dest => dest.Uptime, opt => opt.Ignore())
+                        .ForMember(dest => dest.Chart, opt => opt.Ignore())
                     .ReverseMap();
 
-                cfg.CreateMap<Endpoint, EndpointViewModelWithParent>()
-                    .ReverseMap();
-
-                cfg.CreateMap<HealthReport, HealthReportViewModelWithParent>()
+                cfg.CreateMap<Site, SiteViewModelWithDetailedChilds>()
                     .ReverseMap();
 
             }).CreateMapper();

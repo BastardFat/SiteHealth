@@ -27,6 +27,7 @@ class EditSite extends Component {
             site: {
                 Id: 0,
                 Name: '',
+                FetchIntervalInMinutes: 1,
                 Endpoints: [this.defaultEndpoint()]
             },
             saving: false,
@@ -72,8 +73,8 @@ class EditSite extends Component {
 
     render() {
         if (this.state.loading)
-            return (<Loader>Loading</Loader>);
-        
+            return (<Header size='small'><Icon loading name='spinner' /> Loading</Header>);
+
 
 
         let data = this.props.Sites && this.props.Sites.Items;
@@ -83,19 +84,17 @@ class EditSite extends Component {
         return (
             <React.Fragment>
                 <Header as='h3'>Add site</Header>
-                <Form onSubmit={() => this.save() }>
+                <Form onSubmit={() => this.save()}>
                     <Grid stackable columns={2}>
                         <Grid.Column>
-                            <Form.Input fluid placeholder='Site name' required { ...bind('site', 'Name') } />
-                            <Button color='blue' type='submit' disabled={this.state.saving} loading={this.state.saving}>
-                                Save
-                            </Button>
-                            <Button type='button' disabled={this.state.saving} loading={this.state.saving} onClick={() => this.props.history.push("/")}>
-                                Cancel
-                            </Button>
-                            <Button color='green' floated='right' type='button' onClick={() => this.addEndpoint()} disabled={this.state.saving} loading={this.state.saving}>
-                                Add endpoint
-                            </Button>
+                            <Grid verticalAlign='middle'>
+                                <Grid.Column width={10}>
+                                    <Form.Input fluid placeholder='Site name' required { ...bind('site', 'Name') } />
+                                </Grid.Column>
+                                <Grid.Column width={6}>
+                                    <Form.Input fluid placeholder='Fetch interval' min={1} max={720} type='number' required { ...bind('site', 'FetchIntervalInMinutes') } />
+                                </Grid.Column>
+                            </Grid>
                         </Grid.Column>
                         <Grid.Column>
                             <Grid verticalAlign='middle'>
@@ -112,10 +111,24 @@ class EditSite extends Component {
                                         </Grid.Column>
                                     </Grid.Row>
                                 ))}
+                                <Grid.Row>
+                                    <Grid.Column width={16}>
+                                        <Button color='green' type='button' onClick={() => this.addEndpoint()} disabled={this.state.saving} loading={this.state.saving}>
+                                            Add endpoint
+                                        </Button>
+                                        <Button color='blue' type='submit' disabled={this.state.saving} loading={this.state.saving}>
+                                            Save
+                    </Button>
+                                        <Button type='button' disabled={this.state.saving} loading={this.state.saving} onClick={() => this.props.history.push("/")}>
+                                            Cancel
+                    </Button>
+                                    </Grid.Column>
+                                </Grid.Row>
                             </Grid>
 
                         </Grid.Column>
                     </Grid>
+
                 </Form>
             </React.Fragment>
         );

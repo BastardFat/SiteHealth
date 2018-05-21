@@ -58,7 +58,7 @@ class Home extends Component {
                     <div>
                         {data && data.length == 0 && (<Header size='small'>No sites added yet</Header>)}
                         {data && data.length > 0 && this.props.Sites.TotalPages > 1 && paginator}
-                        <Button icon basic color='purple' floated='right' onClick={() => this.props.history.push("/site/add")}>
+                        <Button icon basic color='purple' onClick={() => this.props.history.push("/site/add")}>
                             <Icon.Group>
                                 <Icon name='world' />
                                 <Icon corner name='add' />
@@ -70,9 +70,10 @@ class Home extends Component {
                                     <List.Content floated='right'>
                                         <Icon link name='pencil' color='purple' onClick={() => this.props.history.push("/site/edit/" + x.Id)}/>
                                     </List.Content>
-                                    <Icon name='world' circular color='blue' inverted />
+                                    <List.Icon name='world' size='large' verticalAlign='middle' />
                                     <List.Content>
-                                        <List.Header as='a'>{x.Name}</List.Header>
+                                        <List.Header as='a' onClick={() => this.props.history.push("/site/view/" + x.Id)}>{x.Name}</List.Header>
+                                        <List.Description>{x.EndpointsCount} endpoint(s)</List.Description>
                                     </List.Content>
                                 </List.Item>
                             ))}

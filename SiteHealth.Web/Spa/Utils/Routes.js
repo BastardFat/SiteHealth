@@ -1,6 +1,7 @@
 ﻿
 import Home from '../Pages/Home.jsx';
 import EditSite from '../Pages/EditSite.jsx';
+import ViewSite from '../Pages/ViewSite.jsx';
 
 const Routes = [
     {
@@ -20,9 +21,15 @@ const Routes = [
         url: '/site/edit/:siteid',
         exact: true,
         component: EditSite
+    },
+    {
+        name: 'ViewSite',
+        url: '/site/view/:siteid',
+        exact: true,
+        component: ViewSite
     }
 ];
 
 const MappedRoutes = Routes.reduce((obj, route) => { obj[route.name] = route; return obj; }, {});
 
-export { Routes, MappedRoutes }
+export { Routes, MappedRoutes };

@@ -80,8 +80,11 @@ const Api = {
     Data: {
         GetSites(page, search) {
             return get(encode`api/data/sites/get?page=${page}&search=${search}`);
+        },
+        GetSite(id) {
+            return get(encode`api/data/sites/get?id=${id}`);
         }
     }
-}
+};
 
 export default Api;

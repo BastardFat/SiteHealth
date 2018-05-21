@@ -12,7 +12,6 @@ namespace SiteHealth.Entity.Models
         public virtual long Id { get; set; }
         public virtual string Name { get; set; }
         public virtual string Url { get; set; }
-        public virtual int FetchIntervalInMinutes { get; set; }
 
         public virtual long SiteId { get; set; }
         public virtual Site Site { get; set; }

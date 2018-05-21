@@ -3,7 +3,7 @@ import { ActionHandlers } from './Actions';
 
 const initialState = {
 
-}
+};
 
 function reducer(state = initialState, action) {
     console.log('action ', action);

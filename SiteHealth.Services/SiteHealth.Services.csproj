@@ -62,18 +62,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\Base\BaseService.cs" />
+    <Compile Include="Implementations\ReportingService.cs" />
     <Compile Include="Implementations\EndpointService.cs" />
     <Compile Include="Implementations\ConfigurationService.cs" />
+    <Compile Include="Interfaces\IReportingService.cs" />
     <Compile Include="Interfaces\IEndpointService.cs" />
     <Compile Include="Interfaces\IConfigurationService.cs" />
     <Compile Include="Ninject\ServicesNinjectModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
+    <Compile Include="ViewModels\Endpoint\EndpointViewModelWithDetails.cs" />
     <Compile Include="ViewModels\Endpoint\EndpointViewModelWithParent.cs" />
     <Compile Include="ViewModels\Endpoint\EndpointViewModelWithChilds.cs" />
+    <Compile Include="ViewModels\HealthReport\StatusesAndErrors.cs" />
+    <Compile Include="ViewModels\HealthReport\ChartItem.cs" />
     <Compile Include="ViewModels\HealthReport\HealthReportViewModelWithParent.cs" />
     <Compile Include="ViewModels\HealthReport\HealthReportViewModel.cs" />
     <Compile Include="ViewModels\Endpoint\EndpointViewModel.cs" />
+    <Compile Include="ViewModels\Site\SiteViewModelWithDetailedChilds.cs" />
     <Compile Include="ViewModels\Site\SiteViewModelWithChilds.cs" />
     <Compile Include="ViewModels\Site\SiteViewModel.cs" />
     <Compile Include="ViewModels\Utils\PagedDataSource.cs" />

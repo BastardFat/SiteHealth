@@ -6,6 +6,6 @@ const SitesReducers = {
         newstate.Sites = payload;
         return newstate;
     }
-}
+};
 
 export default SitesReducers;

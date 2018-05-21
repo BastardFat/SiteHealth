@@ -39,7 +39,7 @@ namespace SiteHealth.Services.ViewModels.Utils
 
     public static class IQueryablePagedDataSourceExtensions
     {
-        public static async Task<PagedDataSource<T>> ConvertToPagedDataSourceAsync<T>(this IQueryable<T> query, int page, int pageSize = 5) where T: ViewModelBase
+        public static async Task<PagedDataSource<T>> ConvertToPagedDataSourceAsync<T>(this IQueryable<T> query, int page, int pageSize = 10) where T: ViewModelBase
         {
             return await PagedDataSource<T>.CreateFromIQueryableAsync(query, page, pageSize);
         }

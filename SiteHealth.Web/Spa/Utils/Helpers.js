@@ -66,7 +66,18 @@ function bindModel(context, changeHandlerName) {
             checked: getByKeypath(keys, context.state) || '',
 
             onChange(event, data) {
-                let value = data.type === 'checkbox' ? data.checked : data.value;
+                let value;
+                switch (data.type) {
+                    case 'checkbox':
+                        value = data.checked;
+                        break;
+                    case 'number':
+                        value = Number.parseInt(data.value, 10) || 1;
+                        break;
+                    default:
+                        value = data.value;
+                        break;
+                }
 
                 var newState = cloneDeep(context.state);
 

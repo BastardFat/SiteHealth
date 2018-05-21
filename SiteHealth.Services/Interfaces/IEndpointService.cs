@@ -10,5 +10,6 @@ namespace SiteHealth.Services.Interfaces
     public interface IEndpointService
     {
         Task<PagedDataSource<SiteViewModel>> GetSites(int page, string search);
+        Task<SiteViewModelWithDetailedChilds> GetSite(long id);
     }
 }

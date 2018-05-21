@@ -1,9 +1,12 @@
-﻿using SiteHealth.Controllers.Base;
+﻿using Hangfire;
+using SiteHealth.Controllers.Base;
 using SiteHealth.Services.Interfaces;
 using SiteHealth.Services.ViewModels.Endpoint;
 using SiteHealth.Services.ViewModels.Site;
+using SiteHealth.Web.Background;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -26,7 +29,9 @@ namespace SiteHealth.Web.Controllers.Api
         [Route("site/save")]
         public async Task<SiteViewModelWithChilds> SaveSite(SiteViewModelWithChilds model)
         {
-            return await _configurationService.SaveSite(model);
+            var res = await _configurationService.SaveSite(model);
+            await BackgroundJobManager.UpdateWorker(res.Id, _configurationService);
+            return res;
         }
 
         [HttpDelete]
@@ -34,6 +39,7 @@ namespace SiteHealth.Web.Controllers.Api
         public async Task RemoveSite(long id)
         {
             await _configurationService.RemoveSite(id);
+            BackgroundJobManager.RemoveWorker(id);
         }
 
         [HttpGet]

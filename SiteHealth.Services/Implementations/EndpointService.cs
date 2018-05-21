@@ -23,6 +23,7 @@ namespace SiteHealth.Services.Implementations
         private readonly ISiteRepository _siteRepository;
 
         private readonly IMapper _simpleMapper;
+        private readonly IMapper _detailedMapper;
 
         public EndpointService(
             ISiteRepository siteRepository)
@@ -30,6 +31,14 @@ namespace SiteHealth.Services.Implementations
             _siteRepository = siteRepository;
 
             _simpleMapper = CreateSimpleMapper();
+            _detailedMapper = CreateMapperWithDetails();
+        }
+
+        public async Task<SiteViewModelWithDetailedChilds> GetSite(long id)
+        {
+            var entity = await _siteRepository.GetByIdAsync(id);
+            var result = _detailedMapper.Map<SiteViewModelWithDetailedChilds>(entity);
+            return result;
         }
 
         public async Task<PagedDataSource<SiteViewModel>> GetSites(int page, string search)
@@ -40,7 +49,7 @@ namespace SiteHealth.Services.Implementations
                 .Query()
                 .Where(x => x.Name.Contains(search))
                 .ProjectTo<SiteViewModel>(_simpleMapper.ConfigurationProvider)
-                .ConvertToPagedDataSourceAsync(page, 3);
+                .ConvertToPagedDataSourceAsync(page);
 
             return result;
         }

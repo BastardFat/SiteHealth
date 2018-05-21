@@ -12,18 +12,23 @@ namespace SiteHealth
     {
         public static void RegisterNinject()
         {
+            NinjectDependencyResolver resolver = GetResolver();
+            DependencyResolver.SetResolver(resolver);
+            GlobalConfiguration.Configuration.DependencyResolver = resolver;
+        }
 
+        public static NinjectDependencyResolver GetResolver(bool singletonMode = false)
+        {
             var kernel = new StandardKernel(
 
-                new DatabaseNinjectModule(),
-                new ServicesNinjectModule()
+                new DatabaseNinjectModule(singletonMode),
+                new ServicesNinjectModule(singletonMode)
 
             );
 
 
             NinjectDependencyResolver resolver = new NinjectDependencyResolver(kernel);
-            DependencyResolver.SetResolver(resolver);
-            GlobalConfiguration.Configuration.DependencyResolver = resolver;
+            return resolver;
         }
     }
 }
