@@ -31,7 +31,7 @@ namespace SiteHealth.Database.Concrete
                 CreatedAt = DateTime.UtcNow,
                 Key = "password",
                 Type = typeof(string).FullName,
-                Value = "admin"
+                Value = "\"admin\""
             });
         }
     }

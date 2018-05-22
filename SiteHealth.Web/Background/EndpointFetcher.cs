@@ -26,9 +26,11 @@ namespace SiteHealth.Web.Background
             {
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
                 sw.Start();
-                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-                sw.Stop();
-                report.StatusCode = (int)resp.StatusCode;
+                using(HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
+                {
+                    sw.Stop();
+                    report.StatusCode = (int)resp.StatusCode;
+                }
             }
             catch (Exception ex)
             {

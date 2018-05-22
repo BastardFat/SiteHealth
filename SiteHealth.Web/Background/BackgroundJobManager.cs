@@ -34,11 +34,13 @@ namespace SiteHealth.Web.Background
             var fetcher = new EndpointFetcher();
             foreach (var endpoint in jobInfo.Endpoints)
             {
-                var report = fetcher.MakeHealthReport(endpoint.Url, endpoint.Id);
-                report.IntervalInMinutes = jobInfo.FetchIntervalInMinutes;
-                service.AddReportSyncroniously(report);
+                Task.Run(() =>
+                {
+                    var report = fetcher.MakeHealthReport(endpoint.Url, endpoint.Id);
+                    report.IntervalInMinutes = jobInfo.FetchIntervalInMinutes;
+                    service.AddReportSyncroniously(report);
+                });
             }
-
         }
 
     }
